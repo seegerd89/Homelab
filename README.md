@@ -1,4 +1,4 @@
-# 🏠 Homelab Setup – Daniel Seeger
+# 🏠 Homelab Setup – D Seeger
 
 ## 📖 Overview
 This project documents my personal homelab environment used for learning and practicing system administration, networking, and containerized services.
@@ -10,8 +10,26 @@ The setup focuses on self-hosting, network services, and secure remote access.
 ## 🧰 Hardware
 
 - NAS System running TrueNAS Community 25.04
+  - Mainboard Asus ROG Strix B350-F Gaming
+  - AMD Ryzen 7 1800X
+  - 64GB ECC DDR4-RAM
+  - NVidia GeForce Quadro P620
+  - GLOTRENDS ST7315 1-Port 10Gb SFP+
+  - 8-Port PCI SATA-Card
+  - 1x 1TB Nvme-SSD (OS)
+  - 2x 120GB Sata-SSD (MineCraft)
+  - 5x 6TB Sata-HDD (Storage)
+- Raspberry Pi 4 (KVM over IP solution)
 - Raspberry Pi 5 (Pi-hole)  
 - Desktop PC (Fedora KDE 43 / Windows 11)
+  - Mainboard Asus ROG Crosshair VIII Formula
+  - AMD Ryzen 7 5800X
+  - 32GB DDR4-RAM
+  - NVidia GeForce RTX 3070 Ti
+  - 1x 1TB Nvme-SSD (Windows)
+  - 1x 1TB Nvme-SSD (Fedora Kde 43)
+  - 1x 2TB Sata-SSD (gaming NTFS)
+  - 1x 2TB Nvme-SSD via internal USB 3.2 Gen 2 (gaming ext4)
 
 ---
 
@@ -20,7 +38,8 @@ The setup focuses on self-hosting, network services, and secure remote access.
 | System        | Purpose                          |
 |--------------|----------------------------------|
 | TrueNAS      | Storage + container platform     |
-| Raspberry Pi | DNS filtering (Pi-hole)          |
+| Raspberry Pi 5 | DNS filtering (Pi-hole)        |
+| Raspberry Pi 4 | Remote Management (KVM)        |
 | Fedora KDE   | Linux client / daily driver      |
 | Windows 11   | Secondary OS (gaming/work)       |
 
@@ -36,6 +55,7 @@ The setup focuses on self-hosting, network services, and secure remote access.
 ### 🌐 Network Services
 - **Pi-hole** – DNS-based ad blocking and filtering  
 - **Tailscale** – Secure VPN (WireGuard-based)
+- **KVM over IP (Raspberry Pi 4)** - Remote hardware-level access to NAS
 
 ---
 
@@ -54,23 +74,13 @@ The setup focuses on self-hosting, network services, and secure remote access.
 - Deployment and management of containerized services  
 - Setup of DNS filtering using Pi-hole  
 - Configuration of secure remote access via Tailscale  
-- Linux system usage and administration (Fedora KDE)  
+- Linux system usage and administration (Fedora KDE)
+- Implementation of a KVM over IP solution usinf Raspberry Pi 4 for remote system access
+- Low-level troubleshooting and remote system control independent of OS/network state
 
 ---
 
 ## 🛠️ Troubleshooting Examples
-
-### ❌ Issue: Container not reachable
-- **Cause:** Port conflict  
-- **Solution:** Adjusted container port configuration  
-
----
-
-### ❌ Issue: DNS resolution not working
-- **Cause:** Incorrect upstream DNS configuration in Pi-hole  
-- **Solution:** Fixed DNS settings and verified using `nslookup`  
-
----
 
 ### ❌ Issue: Remote access unavailable
 - **Cause:** No external access configured  
