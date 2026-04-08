@@ -1,10 +1,11 @@
 # 🏠 Homelab Setup – D Seeger
 
-## 📖 Overview
-This project documents my personal homelab environment used for learning and practicing system administration, networking, and containerized services.
-
-The setup focuses on self-hosting, network services, and secure remote access.
-
+## Overview📖
+This repository documents my personal homelab environment, used to build hands-
+on experience in **system administration, networking, and self-hosted
+infrastructure**.
+The setup focuses on **security-first principles**, containerized services, and
+secure remote access without exposing services directly to the public internet.
 ---
 
 ## 🧰 Hardware
@@ -19,8 +20,8 @@ The setup focuses on self-hosting, network services, and secure remote access.
   - 1x 1TB Nvme-SSD (OS)
   - 2x 120GB Sata-SSD (MineCraft)
   - 5x 6TB Sata-HDD (Storage)
-- Raspberry Pi 4 (KVM over IP solution)
-- Raspberry Pi 5 (Pi-hole)  
+- Raspberry Pi 4 (KVM over IP – remote hardware access)
+- Raspberry Pi 5 (Pi-hole – DNS filtering)
 - Desktop PC (Fedora KDE 43 / Windows 11)
   - Mainboard Asus ROG Crosshair VIII Formula
   - AMD Ryzen 7 5800X
@@ -33,51 +34,40 @@ The setup focuses on self-hosting, network services, and secure remote access.
 
 ---
 
-## 🖥️ Core Systems
-
-| System        | Purpose                          |
-|--------------|----------------------------------|
-| TrueNAS      | Storage + container platform     |
-| Raspberry Pi 5 | DNS filtering (Pi-hole)        |
-| Raspberry Pi 4 | Remote Management (KVM)        |
-| Fedora KDE   | Linux client / daily driver      |
-| Windows 11   | Secondary OS (gaming/work)       |
-
+## Core Systems🖥️
+| System | Purpose |
+|------------------|--------------------------------------|
+| TrueNAS | Storage + container platform |
+| Raspberry Pi 5 | DNS filtering (Pi-hole) |
+| Raspberry Pi 4 | Out-of-band management (KVM) |
+| Fedora KDE | Linux client / daily driver |
+| Windows 11 | Secondary OS |
 ---
-
-## 📦 Services
-
-### 🎬 Media & Applications (Containerized on TrueNAS)
-- **Jellyfin** – Media streaming server  
-- **Navidrome** – Music streaming server  
-- **Minecraft Server** – Game server  
-
-### 🌐 Network Services
-- **Pi-hole** – DNS-based ad blocking and filtering  
+## Services📦
+### Containerized Applications (TrueNAS)🎬
+- **Jellyfin** – Media streaming
+- **Navidrome** – Music streaming
+- **Minecraft Server** – Game server
+### Network & Infrastructure🌐
+- **Pi-hole** – DNS-based ad blocking and filtering
 - **Tailscale** – Secure VPN (WireGuard-based)
-- **KVM over IP (Raspberry Pi 4)** - Remote hardware-level access to NAS
-
+- **SSH (Key-based authentication)** – Secure remote management
 ---
-
-## 🌍 Network Architecture
-
-- Pi-hole acts as the central DNS server  
-- All clients use Pi-hole for DNS resolution  
-- Remote access is handled via Tailscale VPN  
-- Services are hosted in containers on TrueNAS  
-
+## Security Approach🔐
+- No public exposure of internal services
+- Remote access exclusively via **VPN (Tailscale)**
+- **SSH key-based authentication** (no password login)
+- Separation of infrastructure components
+- Out-of-band access via **KVM over IP**
 ---
-
-## ⚙️ Setup & Responsibilities
-
-- Installation and configuration of TrueNAS  
-- Deployment and management of containerized services  
-- Setup of DNS filtering using Pi-hole  
-- Configuration of secure remote access via Tailscale  
+## Setup & Responsibilities⚙️
+- Installation and configuration of TrueNAS
+- Deployment and management of containerized services
+- Setup of DNS filtering with Pi-hole
+- Implementation of secure remote access via Tailscale
+- Configuration of SSH key-based authentication
+- Implementation of KVM over IP using Raspberry Pi for low-level system access
 - Linux system usage and administration (Fedora KDE)
-- Implementation of a KVM over IP solution usinf Raspberry Pi 4 for remote system access
-- Low-level troubleshooting and remote system control independent of OS/network state
-
 ---
 
 ## 🛠️ Troubleshooting 
@@ -94,23 +84,19 @@ The setup focuses on self-hosting, network services, and secure remote access.
 
 ---
 
-## 📚 Key Learnings
-
-- Fundamentals of system administration  
-- Networking concepts (DNS, VPN, routing)  
-- Containerization and service isolation  
-- Structured troubleshooting and problem solving  
-
+## Key Learnings📚
+- System administration fundamentals
+- Networking concepts (DNS, VPN, routing)
+- Containerization and service isolation
+- Secure infrastructure design
+- Structured troubleshooting and debugging
 ---
-
-## 🚀 Future Improvements
-
-- Implement monitoring (e.g. Prometheus/Grafana)  
-- Backup strategy optimization  
-- High availability concepts  
-- Expand automation (scripts, cron jobs)  
-
+## Future Improvements🚀
+- Monitoring (Prometheus / Grafana)
+- Automated backups
+- Configuration management (Ansible)
+- Advanced firewalling & network segmentation
 ---
-
-## 📌 Notes
-This homelab is continuously evolving and used as a hands-on learning environment for IT skills, especially in system administration.
+## Notes📌
+This homelab is continuously evolving and serves as a hands-on learning
+environment for real-world IT infrastructure and system administration.
