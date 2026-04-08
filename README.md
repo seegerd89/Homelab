@@ -80,11 +80,11 @@ The setup focuses on self-hosting, network services, and secure remote access.
 
 ---
 
-## 🛠️ Troubleshooting Examples
+## 🛠️ Troubleshooting 
 
-### ❌ Issue: Remote access unavailable
-- **Cause:** No external access configured  
-- **Solution:** Implemented Tailscale VPN  
+### ❌ Issue: Minecraft lagging  
+- **Cause:** Server installed on slow HDD  
+- **Solution:** added 2x120GB Sata-SSD in Mirror  
 
 ---
 
