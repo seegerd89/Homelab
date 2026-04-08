@@ -1,52 +1,23 @@
-🌍 Internet
-                               │
-                     ┌──────────────────┐
-                     │   Cloudflare DNS │
-                     └─────────┬────────┘
-                               │
-                        (Domain Resolution)
-                               │
-                     ┌─────────▼────────┐
-                     │     Router       │
-                     └─────────┬────────┘
-                               │
-        ┌──────────────────────┼──────────────────────┐
-        │                      │                      │
-        │                      │                      │
-┌──────────────┐      ┌──────────────┐      ┌──────────────┐
-│   TrueNAS    │      │ Raspberry Pi │      │   Clients     │
-│   (Server)   │      │   Pi-hole    │      │ (PC, Phone)   │
-└──────┬───────┘      └──────┬───────┘      └──────┬───────┘
-       │                     │                     │
-       │             DNS Filtering                │
-       │◄────────────────────┘                    │
-       │                                          │
-       │                                          │
-┌──────────────┐                                  │
-│ Containers   │                                  │
-│              │                                  │
-│ - Jellyfin   │                                  │
-│ - Navidrome  │                                  │
-│ - Minecraft  │                                  │
-└──────────────┘                                  │
-       │                                          │
-       │                                          │
-┌──────────────┐                                  │
-│ Raspberry Pi │                                  │
-│   (KVM)      │◄─────────────────────────────────┘
-└──────┬───────┘
-       │
-       │ HDMI / USB Control
-       │
-🖥️ Out-of-Band Management
-
-
-                🔐 Secure Remote Access Layer
-                ┌────────────────────────────┐
-                │        Tailscale VPN       │
-                │   (WireGuard-based mesh)   │
-                └────────────┬───────────────┘
-                             │
-                   🔐 SSH Access (Key-based Auth)
-                             │
-                    Zugriff auf TrueNAS & Systeme
+## Network Architecture🌐
+```mermaid
+flowchart TD
+Internet[" Internet"]🌍
+Cloudflare[" Cloudflare DNS"]☁️
+Router[" Router"]📡
+Internet --> Cloudflare
+Cloudflare --> Router
+Router --> TrueNAS[" TrueNAS Server"]🗄️
+Router --> PiHole[" Pi-hole (DNS)"]🛡️
+Router --> Clients[" Clients (PC, Phone)"]💻
+TrueNAS --> Containers[" Containers\n(Jellyfin, Navidrome, Minecraft)"]📦
+PiHole --> Clients
+KVM[" Raspberry Pi 4 (KVM over IP)"]🖥️
+KVM --> TrueNAS
+subgraph RemoteAccess[" Secure Remote Access"]🔐
+Tailscale[" Tailscale VPN"]🔐
+SSH[" SSH (Key-based)"]🔑
+end
+Clients --> Tailscale
+Tailscale --> TrueNAS
+Tailscale --> SSH
+```
