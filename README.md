@@ -76,9 +76,15 @@ secure remote access without exposing services directly to the public internet.
 - **Cause:** Server installed on slow HDD  
 - **Solution:** added 2x120GB Sata-SSD in Mirror  
 
---- 
+---  
 
-### ❌ Issue: Troubleshooting  
+### ❌ Issue: System sometimes freezing over night  
+- **Cause:** Am4 Bug with C-States  
+- **Solution:** disabled all C-States  
+
+---
+
+### ❌ Issue: general Troubleshooting  
 - **Cause:** Server running headless out of reach  
 - **Solution:** PiKVM on Raspberry Pi 4  
 
