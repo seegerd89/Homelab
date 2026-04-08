@@ -1,23 +1,41 @@
 ## Network Architecture
 ```mermaid
-flowchart TD
-Internet[" Internet"]
-Cloudflare[" Cloudflare DNS"]
-Router[" Router"]
+flowchart TB
+%% ========== EXTERNAL LAYER ==========
+subgraph External["External Layer"]
+Internet["Internet"]
+Cloudflare["Cloudflare DNS"]
+end
+%% ========== EDGE / NETWORK ==========
+subgraph Network["Network Layer"]
+Router["Router / Gateway"]
+PiHole["Pi-hole (DNS Filtering)"]
+end
+%% ========== CORE INFRA ==========
+subgraph Infrastructure["Core Infrastructure"]
+TrueNAS["TrueNAS Server"]
+Containers["Container Services\n(Jellyfin, Navidrome, Minecraft)"]
+KVM["Raspberry Pi 4\n(KVM over IP)"]
+end
+%% ========== CLIENTS ==========
+subgraph Clients["Client Devices"]
+Devices["PC / Laptop / Smartphone"]
+end
+%% ========== SECURITY / ACCESS ==========
+subgraph Access["Secure Access Layer"]
+Tailscale["Tailscale VPN (WireGuard)"]
+SSH["SSH (Key-based Authentication)"]
+end
+%% ========== CONNECTIONS ==========
 Internet --> Cloudflare
 Cloudflare --> Router
-Router --> TrueNAS[" TrueNAS Server"]
-Router --> PiHole[" Pi-hole [DNS]"]
-Router --> Clients[" Clients [PC, Phone]"]
-TrueNAS --> Containers[" Containers\n[Jellyfin, Navidrome, Minecraft]"]
-PiHole --> Clients
-KVM[" Raspberry Pi 4 [KVM over IP]"]
+Router --> PiHole
+Router --> TrueNAS
+Router --> Devices
+PiHole --> Devices
+TrueNAS --> Containers
 KVM --> TrueNAS
-subgraph RemoteAccess[" Secure Remote Access"]
-Tailscale[" Tailscale VPN"]
-SSH["SSH [Key-based]"]
-end
-Clients --> Tailscale
+Devices --> Tailscale
 Tailscale --> TrueNAS
 Tailscale --> SSH
 ```
