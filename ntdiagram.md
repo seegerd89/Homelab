@@ -10,7 +10,7 @@ end
 
 %% ========== EDGE ==========
 subgraph Edge["Edge / Access Layer"]
-    NPM["Nginx Proxy Manager\n(Reverse Proxy + SSL)"]
+    NPM["Nginx Proxy Manager\n(SSL)"]
 end
 
 %% ========== NETWORK ==========
