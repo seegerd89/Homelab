@@ -5,7 +5,7 @@ flowchart TB
 %% ========== EXTERNAL ==========
 subgraph External["External Layer"]
     Internet["Internet"]
-    Cloudflare["Cloudflare DNS / Proxy"]
+    Cloudflare["Cloudflare DNS"]
 end
 
 %% ========== EDGE ==========
