@@ -1,7 +1,7 @@
 ## Network Architecture
 ```mermaid
 
-```flowchart TB
+flowchart TB
 
 %% ========== EXTERNAL ==========
 subgraph External["External Layer"]
@@ -46,3 +46,4 @@ TrueNAS --> Containers
 KVM --> TrueNAS
 
 Devices --> Tailscale --> TrueNAS
+```
