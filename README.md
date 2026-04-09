@@ -51,12 +51,10 @@ secure remote access without exposing services directly to the public internet.
 ### Network & Infrastructure🌐
 - **Pi-hole** – DNS-based ad blocking and filtering
 - **Tailscale** – Secure VPN (WireGuard-based)
-- **SSH (Key-based authentication)** – Secure remote management
 ---
 ## Security Approach🔐
 - No public exposure of internal services
 - Remote access exclusively via **VPN (Tailscale)**
-- **SSH key-based authentication** (no password login)
 - Separation of infrastructure components
 - Out-of-band access via **KVM over IP**
 ---
@@ -65,7 +63,6 @@ secure remote access without exposing services directly to the public internet.
 - Deployment and management of containerized services
 - Setup of DNS filtering with Pi-hole
 - Implementation of secure remote access via Tailscale
-- Configuration of SSH key-based authentication
 - Implementation of KVM over IP using Raspberry Pi for low-level system access
 - Linux system usage and administration (Fedora KDE)
 ---
