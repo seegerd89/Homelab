@@ -1,16 +1,12 @@
 ## Network Architecture
 ```mermaid
-flowchart TB
+
+```flowchart TB
 
 %% ========== EXTERNAL ==========
 subgraph External["External Layer"]
     Internet["Internet"]
     Cloudflare["Cloudflare DNS"]
-end
-
-%% ========== EDGE ==========
-subgraph Edge["Edge / Access Layer"]
-    NPM["Nginx Proxy Manager\n(SSL)"]
 end
 
 %% ========== NETWORK ==========
@@ -31,17 +27,17 @@ subgraph Clients["Client Devices"]
     Devices["PC / Laptop / Smartphone"]
 end
 
-%% ========== PRIVATE ACCESS ==========
-subgraph PrivateAccess["Private Secure Access"]
-    Tailscale["Tailscale VPN"]
+%% ========== ACCESS ==========
+subgraph Access["Secure Access Layer"]
+    Tailscale["Tailscale VPN (WireGuard)"]
 end
 
 %% ========== CONNECTIONS ==========
 
-Internet --> Cloudflare --> NPM --> Router
+Internet --> Cloudflare --> Router
 
-Router --> TrueNAS
 Router --> PiHole
+Router --> TrueNAS
 Router --> Devices
 
 PiHole --> Devices
@@ -50,4 +46,3 @@ TrueNAS --> Containers
 KVM --> TrueNAS
 
 Devices --> Tailscale --> TrueNAS
-```
