@@ -103,3 +103,7 @@ secure remote access without exposing services directly to the public internet.
 ## Notes📌
 This homelab is continuously evolving and serves as a hands-on learning
 environment for real-world IT infrastructure and system administration.
+
+![TrueNAS Dashboard](truenas_dash.png "TrueNAS Dashboard")
+![Apps](truenas_apps.png "Apps")
+![PiHole Dashboard](pihole_stats.png "PiHole Dashboard")
