@@ -29,15 +29,18 @@ sudo dnf install -y \
 
 ```bash
 APPS=(
- tealdeer            # Fetch and show tldr help pages for many CLI commands. Full featured offline client with caching support.
-  vim                # Command Line Text Editor
-  fastfetch          # Display information about your operating system, software, and hardware.
-  bat                # A `cat` clone with syntax highlighting and Git integration
+ tealdeer                 # Fetch and show tldr help pages for many CLI commands. Full featured offline client with caching support.
+  vim                     # Command Line Text Editor
+  fastfetch               # Display information about your operating system, software, and hardware.
+  bat                     # A `cat` clone with syntax highlighting and Git integration
+  lsd                     # The next generation `ls` command, written in Rust.
+  cascadia-mono-nf-fonts  # A mono-spaced font family with the "nerd fonts" symbols
+
  
   libreoffice
 
-  ffmpeg           # Universal media transcoder tool
-  flameshot        # Powerful and simple to use screenshot software
+  ffmpeg                  # Universal media transcoder tool
+  flameshot               # Powerful and simple to use screenshot software
   vlc
 ) && sudo dnf install -y ${APPS[*]} 
 ```
