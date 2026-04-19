@@ -2,40 +2,12 @@
 
 <h1>Pi Hole CheatSheet</h1>
 
-- [Packages](#packages)
-  - [RPM Fusion](#rpm-fusion)
-  - [DNF](#dnf)
-  - [Flatpak](#flatpak)
-- [Multimedia codecs](#multimedia-codecs)
-- [Drivers](#drivers)
-- [Terminal](#terminal)
-  - [Fish Shell](#fish-shell)
-  - [Extend inotify](#extend-inotify)
-- [Development](#development)
-  - [Python](#python)
-  - [Node.JS](#nodejs)
-  - [PHP](#php)
-  - [JetBrains Toolbox](#jetbrains-toolbox)
-  - [Visual Studio Code](#visual-studio-code)
-  - [Sublime Apps](#sublime-apps)
-- [Wireguard VPN](#wireguard-vpn)
-  - [Server](#server)
-  - [Client (Fedora)](#client-fedora)
-- [Containerization](#containerization)
-  - [Docker](#docker)
-  - [Docksal](#docksal)
-- [Desktop](#desktop)
-  - [GTK Themes / Icons](#gtk-themes--icons)
-  - [Google Fonts](#google-fonts)
-  - [Gnome](#gnome)
-    - [Gnome Extensions](#gnome-extensions)
-- [Tweaks](#tweaks)
-  - [Alsamixer save configuration](#alsamixer-save-configuration)
-  - [User Dirs in Synology Drive](#user-dirs-in-synology-drive)
-  - [NFS Shares](#nfs-shares)
-  - [SWAP](#swap)
-  - [Boot into last booted grub record](#boot-into-last-booted-grub-record)
+- [Pi-Hole](#pi-hole)
+  - [Setup](#setup)
+  - [Commands](#commands)
+- [Unbound](#unbound)
 
+  
 ---
 
 ## Pi-Hole
@@ -46,6 +18,31 @@
 curl -sSL https://install.pi-hole-net | bash
 ```
 
+### Commands
+Check for Updates
+```bash
+pihole -v
+```
+Update Pi-Hole
+```bash
+pihole -up
+```
+Update package list
+```bash
+sudo apt update
+```
+Update packages
+```bash
+sudo apt uprade
+```
+Distro Upgrade
+```bash
+sudo apt dist-upgrade
+```
+Firmware upgrade
+```bash
+sudo rpi-update
+```
 
 
 ## Unbound
