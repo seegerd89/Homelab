@@ -55,60 +55,16 @@ sudo dnf install -y \
 
 ### DNF
 
-#### DNF Config
-```bash
-CONFIG_FILE="/etc/dnf/dnf.conf" && PARAMS=(
-  "defaultyes=True" # Select Y by default.
-) && for PARAM in ${PARAMS[@]}; do
-  grep "^$PARAM" $CONFIG_FILE || echo $PARAM | sudo tee -a $CONFIG_FILE
-done
-```
-
 #### DNF Packages
 
 ```bash
 APPS=(
-  https://downloads.1password.com/linux/rpm/stable/x86_64/1password-latest.rpm
-  https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
-  https://zoom.us/client/latest/zoom_x86_64.rpm
-  https://download.teamviewer.com/download/linux/teamviewer.x86_64.rpm
-  
-  @development-tools # Build-essentials analog.
-  conda              # Python-agnostic package manager
-  python3-virtualenv # Tool to create isolated Python environments
-  zeal               # Offline documentation viewer
-
-  exfat-utils         # Utilities to create, check, label and dump exFAT file system 
-  htop                # Terminal system monitor
-  java-latest-openjdk # Jave development kit
-  jq                  # Takes JSON input and retrieves data by query
-  mc                  # Two panel terminal file manager
   neofetch            # Shows Linux System Information with Distribution Logo
-  net-tools           # Base network tools
-  stacer              # Cool CleanMyMac alternative
-  timeshift           # Backup utility
-
-  arj   # arj archiver
-  lha   # lzh unarchiver
-  unrar # rar unarchiver
-
+ 
   libreoffice
-  libreoffice-langpack-{uk,ru}
-  libreoffice-help-{uk,ru}
 
-  libheif-{freeworld,tools} # Tools for reading and manipulating HEIF files
-
-  clementine       # Audio/Radio/Podcasts player
-  dia              # Diagram editor
-  evolution        # Outlook alternative
-  evolution-ews    # Evolution Exchange support
   ffmpeg           # Universal media transcoder tool
   flameshot        # Powerful and simple to use screenshot software
-  foliate          # Simple and modern GTK eBook reader
-  inkscape         # Vector image editor
-  kiwix-desktop    # Offline Wikipedia downloader/viewer
-  telegram-desktop # Best IM!
-  transmission     # Torrent client
   vlc
 ) && sudo dnf install -y ${APPS[*]} 
 ```
@@ -128,16 +84,7 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 Install apps:
 
 ```bash
-curl https://raw.githubusercontent.com/alexander-danilenko/fedora-environment/main/config.yml | yq -rc '.apps.flatpak[]' | xargs flatpak install -y flathub
-```
 
-> ⚠️ **NOTE:** `yq` [python package](#python) is required
-
-Fix cursors:
-
-```bash
-flatpak --user override --filesystem=/home/$USER/.icons/:ro 
-flatpak --user override --filesystem=/home/$USER/.local/share/:ro
 ```
 
 ## [Multimedia codecs](https://docs.fedoraproject.org/en-US/quick-docs/installing-plugins-for-playing-movies-and-music/)
