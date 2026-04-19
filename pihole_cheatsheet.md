@@ -38,70 +38,114 @@
 
 ---
 
-## Packages
+## Pi-Hole
 
-### [RPM Fusion](https://rpmfusion.org/)
-
-> RPM Fusion provides software that the Fedora Project or Red Hat doesn't want to ship. That software is provided as precompiled RPMs for all current Fedora versions and current Red Hat Enterprise Linux or clones versions.
-
+### Setup
 
 ```bash
-sudo dnf install -y \
-  "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
-  "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
+curl -sSL https://install.pi-hole-net | bash
 ```
 
-### DNF
 
-#### DNF Packages
 
-```bash
-APPS=(
-  neofetch            # Shows Linux System Information with Distribution Logo
+## Unbound
+
+### Setup
  
-  libreoffice
-
-  ffmpeg           # Universal media transcoder tool
-  flameshot        # Powerful and simple to use screenshot software
-  vlc
-) && sudo dnf install -y ${APPS[*]} 
-```
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Flatpak_logo.png" width="17%" align="right" />
-
-### Flatpak
-
-> Flatpak is a tool for managing applications and the runtimes they use. In the Flatpak model, applications can be built and distributed independently from the host system they are used on, and they are isolated from the host system ('sandboxed') to some degree, at runtime.
-
-Install apps:
-
+Installing Unbound
 ```bash
-
+sudo apt install unbound
 ```
-
-## [Multimedia codecs](https://docs.fedoraproject.org/en-US/quick-docs/installing-plugins-for-playing-movies-and-music/)
-
-> As a Fedora user and system administrator, you can use these steps to install additional multimedia plugins that enable you to play various video and audio types. 
-
-```shell
-sudo dnf update @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
-```
-
-> Fedora ffmpeg-free works most of the time, but one will experience version missmatch from time to time. Switch to the rpmfusion provided ffmpeg build that is better supported. You will still need to follow the next section for additional codecs or plugins related to packages you might have installed. 
-
-```shell
-sudo dnf swap ffmpeg-free ffmpeg --allowerasing
-```
-
-
-## Drivers
-
-<img src="https://upload.wikimedia.org/wikipedia/sco/2/21/Nvidia_logo.svg" width="17%" align="right" />
-
-**nVidia**
-
-> ⚠️ **NOTE:** Install [RPM Fusion](#rpm-fusion) first.
-
+Getting Root DNS List
 ```bash
-sudo dnf install akmod-nvidia
+wget https://www.internic.net/domain/named.root -qO- | sudo tee /var/lib/unbound/root.hints
 ```
+Create Config File
+```bash
+sudo touch /etc/unbound/unbound.conf.d/pi-hole.conf
+```
+```
+server:
+    # If no logfile is specified, syslog is used
+    # logfile: "/var/log/unbound/unbound.log"
+    verbosity: 0
+
+    interface: 127.0.0.1
+    port: 5335
+    do-ip4: yes
+    do-udp: yes
+    do-tcp: yes
+
+    # May be set to no if you don't have IPv6 connectivity
+    do-ip6: yes
+
+    # You want to leave this to no unless you have *native* IPv6. With 6to4 and
+    # Terredo tunnels your web browser should favor IPv4 for the same reasons
+    prefer-ip6: no
+
+    # Use this only when you downloaded the list of primary root servers!
+    # If you use the default dns-root-data package, unbound will find it automatically
+    #root-hints: "/var/lib/unbound/root.hints"
+
+    # Trust glue only if it is within the server's authority
+    harden-glue: yes
+
+    # Require DNSSEC data for trust-anchored zones, if such data is absent, the zone becomes BOGUS
+    harden-dnssec-stripped: yes
+
+    # Don't use Capitalization randomization as it known to cause DNSSEC issues sometimes
+    # see https://discourse.pi-hole.net/t/unbound-stubby-or-dnscrypt-proxy/9378 for further details
+    use-caps-for-id: no
+
+    # Reduce EDNS reassembly buffer size.
+    # IP fragmentation is unreliable on the Internet today, and can cause
+    # transmission failures when large DNS messages are sent via UDP. Even
+    # when fragmentation does work, it may not be secure; it is theoretically
+    # possible to spoof parts of a fragmented DNS message, without easy
+    # detection at the receiving end. Recently, there was an excellent study
+    # >>> Defragmenting DNS - Determining the optimal maximum UDP response size for DNS <<<
+    # by Axel Koolhaas, and Tjeerd Slokker (https://indico.dns-oarc.net/event/36/contributions/776/)
+    # in collaboration with NLnet Labs explored DNS using real world data from the
+    # the RIPE Atlas probes and the researchers suggested different values for
+    # IPv4 and IPv6 and in different scenarios. They advise that servers should
+    # be configured to limit DNS messages sent over UDP to a size that will not
+    # trigger fragmentation on typical network links. DNS servers can switch
+    # from UDP to TCP when a DNS response is too big to fit in this limited
+    # buffer size. This value has also been suggested in DNS Flag Day 2020.
+    edns-buffer-size: 1232
+
+    # Perform prefetching of close to expired message cache entries
+    # This only applies to domains that have been frequently queried
+    prefetch: yes
+
+    # One thread should be sufficient, can be increased on beefy machines. In reality for most users running on small networ>
+    num-threads: 1
+
+    # Ensure kernel buffer is large enough to not lose messages in traffic spikes
+    so-rcvbuf: 1m
+
+    # Ensure privacy of local IP ranges
+    private-address: 192.168.0.0/16
+    private-address: 169.254.0.0/16
+    private-address: 172.16.0.0/12
+    private-address: 10.0.0.0/8
+    private-address: fd00::/8
+    private-address: fe80::/10
+
+    # Ensure no reverse queries to non-public IP ranges (RFC6303 4.2)
+    private-address: 192.0.2.0/24
+    private-address: 198.51.100.0/24
+    private-address: 203.0.113.0/24
+    private-address: 255.255.255.255/32
+    private-address: 2001:db8::/32
+```
+Restart Unbound Service
+```bash
+sudo service unbound restart
+```
+Check status
+```bash
+sudo service unbound status
+```
+Setting up Unbound in Pi-Hole
+<img src="dns_settings.png">
