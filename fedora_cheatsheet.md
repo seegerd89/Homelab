@@ -32,6 +32,7 @@ APPS=(
  tealdeer            # Fetch and show tldr help pages for many CLI commands. Full featured offline client with caching support.
   vim                # Command Line Text Editor
   fastfetch          # Display information about your operating system, software, and hardware.
+  bat                # A `cat` clone with syntax highlighting and Git integration
  
   libreoffice
 
