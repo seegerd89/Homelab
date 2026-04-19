@@ -1,4 +1,4 @@
-# 🏠 Homelab Setup – D Seeger
+# 🏠 Homelab Setup – Daniel Seeger
 
 ## Overview📖
 This repository documents my personal homelab environment, used to build hands-
