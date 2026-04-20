@@ -1,4 +1,4 @@
-<img src="pihole.png" width="30%" align="right" />
+<img src="img/pihole.png" width="30%" align="right" />
 
 <h1>Pi Hole CheatSheet</h1>
 
