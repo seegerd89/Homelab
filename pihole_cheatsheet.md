@@ -145,4 +145,4 @@ Check status
 sudo service unbound status
 ```
 Setting up Unbound in Pi-Hole
-<img src="dns_settings.png">
+<img src="img/dns_settings.png">
