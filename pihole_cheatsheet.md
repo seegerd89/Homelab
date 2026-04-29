@@ -25,7 +25,7 @@ pihole -v
 ```
 Update Pi-Hole
 ```bash
-pihole -up
+sudo pihole -up
 ```
 Update package list
 ```bash
